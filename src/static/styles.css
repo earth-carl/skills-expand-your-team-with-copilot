@@ -1,16 +1,16 @@
 /* Color palette */
 :root {
-  /* Primary colors */
-  --primary: #1a237e;
-  --primary-light: #534bae;
-  --primary-dark: #000051;
+  /* Primary colors - School colors: White and Lime Green */
+  --primary: #32cd32;
+  --primary-light: #7fff00;
+  --primary-dark: #228b22;
   --primary-text: #ffffff;
 
   /* Secondary colors */
-  --secondary: #ff6f00;
-  --secondary-light: #ffa040;
-  --secondary-dark: #c43e00;
-  --secondary-text: #ffffff;
+  --secondary: #ffffff;
+  --secondary-light: #f8fff8;
+  --secondary-dark: #e0e0e0;
+  --secondary-text: #32cd32;
 
   /* Neutral colors */
   --background: #f5f5f5;
@@ -60,8 +60,35 @@ header {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   position: relative;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-content {
+  flex: 1;
+  display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.mascot-left, .mascot-right {
+  flex: 0 0 auto;
+  padding: 0 15px;
+}
+
+.mascot-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  transition: transform 0.3s ease;
+}
+
+.mascot-image:hover {
+  transform: scale(1.1) rotate(5deg);
 }
 
 header h1 {
@@ -476,6 +503,27 @@ footer {
   font-size: 0.8rem;
 }
 
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-mascot {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+  opacity: 0.7;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.footer-mascot:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
 /* Search and Filter Components - Updated for Sidebar */
 .search-box {
   display: flex;
@@ -663,4 +711,108 @@ footer {
 
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Animated Git Branch Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    linear-gradient(45deg, rgba(50, 205, 50, 0.1) 0%, transparent 30%),
+    linear-gradient(-45deg, rgba(50, 205, 50, 0.05) 0%, transparent 20%),
+    linear-gradient(90deg, rgba(50, 205, 50, 0.08) 0%, transparent 40%);
+  background-size: 400px 400px, 300px 300px, 500px 200px;
+  animation: gitBranches 20s linear infinite;
+}
+
+@keyframes gitBranches {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0% 50%;
+  }
+  33% {
+    background-position: 30% 30%, 70% 20%, 20% 80%;
+  }
+  66% {
+    background-position: 70% 10%, 30% 70%, 60% 20%;
+  }
+  100% {
+    background-position: 100% 50%, 0% 100%, 100% 90%;
+  }
+}
+
+/* Git branch lines overlay */
+.git-branches {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.branch-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(50, 205, 50, 0.3), transparent);
+  height: 2px;
+  width: 200px;
+  border-radius: 1px;
+  animation: moveBranch 8s linear infinite;
+}
+
+.branch-line:nth-child(1) {
+  top: 20%;
+  animation-delay: 0s;
+  animation-duration: 12s;
+}
+
+.branch-line:nth-child(2) {
+  top: 40%;
+  animation-delay: -3s;
+  animation-duration: 15s;
+}
+
+.branch-line:nth-child(3) {
+  top: 60%;
+  animation-delay: -6s;
+  animation-duration: 10s;
+}
+
+.branch-line:nth-child(4) {
+  top: 80%;
+  animation-delay: -9s;
+  animation-duration: 18s;
+}
+
+@keyframes moveBranch {
+  0% {
+    left: -200px;
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+  100% {
+    left: 100%;
+    transform: rotate(0deg);
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  .branch-line {
+    animation: none;
+  }
 }
